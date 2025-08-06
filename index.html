@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <title>Gerador de Senhas Fortes - Alura Style</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      text-align: center;
+      padding: 40px;
+    }
+    #senha {
+      font-size: 1.5em;
+      margin: 20px;
+      word-break: break-all;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Gerador de Senhas Fortes</h1>
+  <div>
+    <label><input type="checkbox" id="maiusculas" checked> Maiúsculas</label><br>
+    <label><input type="checkbox" id="minusculas" checked> Minúsculas</label><br>
+    <label><input type="checkbox" id="numeros" checked> Números</label><br>
+    <label><input type="checkbox" id="simbolos" checked> Símbolos</label><br>
+    <label>Comprimento: <input type="number" id="comprimento" value="16" min="4" max="50"></label><br><br>
+    <button onclick="gerarSenha()">Gerar Senha</button>
+    <div id="senha"></div>
+  </div>
+
+  <script>
+    function gerarSenha() {
+      const maiusculas = document.getElementById('maiusculas').checked;
+      const minusculas = document.getElementById('minusculas').checked;
+      const numeros = document.getElementById('numeros').checked;
+      const simbolos = document.getElementById('simbolos').checked;
+      const comprimento = parseInt(document.getElementById('comprimento').value);
+
+      let caracteres = '';
+      if (maiusculas) caracteres += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      if (minusculas) caracteres += 'abcdefghijklmnopqrstuvwxyz';
+      if (numeros) caracteres += '0123456789';
+      if (simbolos) caracteres += '!@#$%^&*()_+{}[]<>?,./';
+
+      if (!caracteres) {
+        document.getElementById('senha').textContent = 'Escolhe pelo menos uma opção!';
+        return;
+      }
+
+      let senha = '';
+      for (let i = 0; i < comprimento; i++) {
+        const index = Math.floor(Math.random() * caracteres.length);
+        senha += caracteres.charAt(index);
+      }
+
+      document.getElementById('senha').textContent = senha;
+    }
+  </script>
+</body>
+</html>
